@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card">
+  <h2>Student Details</h2>
+  <p><strong>Name:</strong> {{ student.name }} | <strong>Roll:</strong> {{ student.roll }}</p>
+  <p><strong>Average:</strong> {{ student.average }}</p>
+</section>
+
+<section class="card">
+  <h3>Grades</h3>
+  {% if student.grades %}
+    <table>
+      <thead><tr><th>Subject</th><th>Grade</th></tr></thead>
+      <tbody>
+      {% for subject, grade in student.grades.items() %}
+        <tr><td>{{ subject }}</td><td>{{ grade }}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No grades yet.</p>
+  {% endif %}
+</section>
+
+<section class="card">
+  <h3>Add/Update Grade</h3>
+  <form action="{{ url_for('create_grade') }}" method="post" class="grid">
+    <input type="hidden" name="roll" value="{{ student.roll }}">
+    <label>
+      Subject
+      <input type="text" name="subject" placeholder="Math" required>
+    </label>
+    <label>
+      Grade
+      <input type="number" name="grade" min="0" max="100" step="0.01" required>
+    </label>
+    <button type="submit">Save Grade</button>
+  </form>
+</section>
+{% endblock %}

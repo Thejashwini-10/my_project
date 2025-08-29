@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card">
+  <h2>Subject Analytics</h2>
+  <form method="get" class="grid">
+    <label>
+      Subject
+      <input type="text" name="subject" value="{{ subject or '' }}" placeholder="Math">
+    </label>
+    <button type="submit">Analyze</button>
+  </form>
+
+  {% if subject %}
+    <div class="mt">
+      <p><strong>Class Average ({{ subject|title }}):</strong> {{ class_avg }}</p>
+      {% if topper %}
+        <p><strong>Topper:</strong> {{ topper.name }} ({{ topper.roll }}) - {{ topper.grade }}</p>
+      {% else %}
+        <p>No topper data for this subject yet.</p>
+      {% endif %}
+    </div>
+  {% endif %}
+</section>
+{% endblock %}
